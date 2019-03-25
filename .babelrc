@@ -1,0 +1,24 @@
+{
+  "presets": ["@babel/preset-react", ["@babel/preset-env", {
+    "useBuiltIns": "usage",
+    "corejs": "3",
+    "shippedProposals": true,
+    "modules": false,
+    "targets": {
+      "browsers": [
+        "last 2 versions"
+      ]
+    }
+  }]],
+  "env": {
+    "test": {
+      "presets": ["@babel/preset-env", "@babel/preset-react"]
+    }
+  },
+  "plugins": [
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-transform-react-jsx"
+  ]
+}

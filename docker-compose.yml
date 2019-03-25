@@ -1,0 +1,25 @@
+version: '2'
+services:
+  db:
+    container_name: nottoday_db
+    image: "mysql:5"
+    volumes:
+      - "./.db:/var/lib/mysql"
+    restart: "no"
+    environment:
+      MYSQL_ROOT_PASSWORD: dev
+      MYSQL_DATABASE: dev
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: dev
+  web:
+    depends_on:
+      - db
+    container_name: nottoday_web
+    image: "node:10"
+    user: "node"
+    working_dir: "/home/node/app"
+    volumes:
+      - "./:/home/node/app"
+    ports:
+      - "3020:3020"
+    command: "npm run server:watch"
