@@ -3,6 +3,8 @@ const fs = require('fs')
 const path = require('path')
 const express = require('express')
 const {createPool} = require('mysql')
+const passport = require('passport')
+const TwitterStrategy = require('passport-twitter').Strategy
 const port = process.env.PORT || 3020
 const app = express()
 
@@ -10,7 +12,7 @@ const devMode = process.env.NODE_ENV !== 'production'
 
 const getConfig = () => {
     try {
-        const data = fs.readFileSync(path.join(__dirname, '../config.json'))
+        const data = fs.readFileSync(path.join(__dirname, '../config.json'), 'utf8')
 
         return data
             ? JSON.parse(data)

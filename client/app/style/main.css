@@ -1,0 +1,5 @@
+@import '@common/variables.css';
+
+#app > #container > main {
+    padding: 20px;
+}

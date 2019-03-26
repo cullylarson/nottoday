@@ -3,13 +3,13 @@ import * as actionTypes from './action-types'
 
 function getMemberListsRequest() {
     return {
-        type: actionTypes.GET_LISTS_REQUEST,
+        type: actionTypes.GET_MEMBER_LISTS_REQUEST,
     }
 }
 
 function getMemberListsSuccess(lists, numTotal, page) {
     return {
-        type: actionTypes.GET_LISTS_SUCCESS,
+        type: actionTypes.GET_MEMBER_LISTS_SUCCESS,
         lists,
         numTotal,
         page,
@@ -18,7 +18,7 @@ function getMemberListsSuccess(lists, numTotal, page) {
 
 function getMemberListsFailure(errors) {
     return {
-        type: actionTypes.GET_LISTS_FAILURE,
+        type: actionTypes.GET_MEMBER_LISTS_FAILURE,
         errors,
     }
 }

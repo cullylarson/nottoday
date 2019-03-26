@@ -1,8 +1,8 @@
-import {getOffset} from '@app/lib/pagination'
-import {paramUrl} from '@app/lib/url'
-import {bearer, responseData} from '@app/lib/request'
+import { getOffset } from '@app/lib/pagination'
+import { paramUrl } from '@app/lib/url'
+import { bearer, responseData } from '@app/lib/request'
 
-export function getMemberLists({apiUrl, accessToken, page, perPage}) {
+export function getMemberLists({ apiUrl, accessToken, page, perPage }) {
     const query = {
         num: perPage,
         offset: getOffset(page, perPage),
@@ -17,7 +17,7 @@ export function getMemberLists({apiUrl, accessToken, page, perPage}) {
         },
     })
         .then(responseData)
-        .then(({response, data}) => {
+        .then(({ response, data }) => {
             if(response.ok) {
                 return {
                     lists: data.lists,

@@ -1,0 +1,60 @@
+button,
+.btn {
+    display: inline-block;
+    color: #fff;
+    background-color: $c--primary;
+    border: 1px solid $c--primary;
+    outline: none;
+    outline-width: 0;
+    outline-color: transparent;
+    box-shadow: none;
+    outline-style: none;
+    text-decoration: none;
+    padding: 10px 20px;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border-radius: 2px;
+    font-weight: $weight-medium;
+    transition: all 200ms ease;
+    line-height: $line-height-normal;
+    text-align: left;
+
+    &:hover {
+        text-decoration: none;
+        background-color: $c--primary-dark;
+        border-color: $c--primary-dark;
+        cursor: pointer;
+    }
+
+    &:disabled, &:disabled:hover {
+        background-color: #c2c2c2;
+        border-color: #c2c2c2;
+        color: #888;
+        cursor: initial;
+        pointer-events: none;
+    }
+
+    &.btn-cancel {
+        background-color: #c2c2c2;
+        border-color: #c2c2c2;
+        color: #888;
+
+        &:hover {
+            background-color: #a2a2a2;
+            border-color: #a2a2a2;
+            color: #555;
+        }
+    }
+
+    &.btn-danger {
+        background-color: $c--danger;
+        border-color: $c--danger;
+        color: white;
+
+        &:hover {
+            background-color: $c--danger-dark;
+            border-color: $c--danger-dark;
+        }
+    }
+}

@@ -1,14 +1,4 @@
-@import './variables.css';
+@import 'normalize.css';
+@import '@common/variables.css';
 @import './body.css';
-
-#app {
-    .container {
-    }
-
-    header {
-        margin-bottom: 40px;
-
-        h1 {
-        }
-    }
-}
+@import './button.css';

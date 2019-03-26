@@ -1,0 +1,60 @@
+$screen-xs-max: 576px;
+$screen-sm-min: 577px;
+$screen-md-min: 768px;
+$screen-lg-min: 992px;
+$screen-xl-min: 1200px;
+
+@custom-media --xs (max-width: $screen-xs-max);
+@custom-media --sm (min-width: $screen-sm-min);
+@custom-media --md (min-width: $screen-md-min);
+@custom-media --lg (min-width: $screen-lg-min);
+@custom-media --xl (min-width: $screen-xl-min);
+
+$c--body: #222223;
+$c--content-bg: #f3f5f7;
+$c--link: #007bff;
+$c--link-dark: #007bff;
+$c--loading: #5a5a5a;
+$c--danger: #e65251;
+$c--danger-dark: #a63b3b;
+$c--danger-light: #f35755;
+$c--danger-xlight: #fadddd;
+$c--success: #00ce68;
+$c--success-dark: #00a855;
+$c--primary: #308ee0;
+$c--primary-dark: #1e7bcb;
+
+$mb--standard: 20px;
+
+$width-slim: 600px;
+
+$weight-light: 300;
+$weight-normal: 400;
+$weight-medium: 500;
+$weight-bold: 700;
+
+$family-body: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$family-header: "Roboto Condensed", Georgia, Times, Times New Roman, serif;
+
+$size-xsmall: 13px;
+$size-small: 14px;
+$size-medium: 15px;
+$size-normal: 16px;
+$size-large: 18px;
+$size-xlarge: 23px;
+$size-xxlarge: 28px;
+$size-h1: 40px;
+$size-h2: 26px;
+$size-h3: 22px;
+$size-h4: 22px;
+$size-h5: 18px;
+
+$letter-spacing-normal: 0;
+$letter-spacing-h1: 0;
+$letter-spacing-h2: 1.3px;
+$letter-spacing-h3: 1.7px;
+$letter-spacing-h4: 0.2px;
+$letter-spacing-h5: 0;
+
+$line-height-normal: 27px;
+$line-height-small: 20px;

@@ -1,6 +1,9 @@
+// (c) 2018 Cully Larson
+
 const webpack = require('webpack')
 const path = require('path')
 const ManifestPlugin = require('webpack-manifest-plugin')
+const CompressionPlugin = require('compression-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = (_, argv) => {
@@ -34,6 +37,19 @@ module.exports = (_, argv) => {
                         ],
                     },
                     {
+                        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                        use: 'url-loader?limit=10000&mimetype=application/font-woff',
+                    },
+                    {
+                        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                        use: {
+                            loader: 'file-loader',
+                            options: {
+                                name: '[name].[hash].[ext]',
+                            },
+                        },
+                    },
+                    {
                         test: /\.css$/,
                         use: [
                             'style-loader',
@@ -51,19 +67,27 @@ module.exports = (_, argv) => {
             },
             devtool: devMode ? 'eval-source-map' : false,
             plugins: [
+                new CopyWebpackPlugin([
+                    {
+                        from: path.resolve(__dirname, 'client/assets/static'),
+                        to: path.join(__dirname, 'build/client'),
+                    },
+                ], {}),
                 new ManifestPlugin(),
+                // only compress in production
+                !devMode ? new CompressionPlugin({
+                    filename: "[path].gz[query]",
+                    algorithm: "gzip",
+                    test: /\.(js|css|html|eot|ttf|woff|woff2|svg)$/,
+                    threshold: 0,
+                    minRatio: 1,
+                }) : null,
                 new webpack.DefinePlugin({
                     'process.env': {
                         NODE_ENV: JSON.stringify(mode),
                     },
                 }),
-                new CopyWebpackPlugin([
-                    {
-                        from: path.resolve(__dirname, 'client/static'),
-                        to: path.resolve(__dirname, 'build/client'),
-                    },
-                ], {})
-            ],
+            ].filter(x => !!x),
         },
     ]
 }

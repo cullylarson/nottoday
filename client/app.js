@@ -4,7 +4,6 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose as reduxCompose } from 'redux'
 import thunk from 'redux-thunk'
 import rootReducer from '@app/root-reducer'
-import memberListsReducer from '@app/member-lists/reducer'
 import App from '@app/app/App'
 
 const composeEnhancers = process.env.NODE_ENV === 'development'
@@ -24,7 +23,8 @@ const getIntialState = (config) => {
         : {
             stateVersion: STATE_VERSION,
             config,
-            memberLists: memberListsReducer(),
+            theHistory: undefined, // undefined will load the initial state from the reducer
+            memberLists: undefined, // undefined will load the initial state from the reducer
         }
 }
 

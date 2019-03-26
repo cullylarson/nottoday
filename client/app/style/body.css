@@ -1,4 +1,12 @@
-@import './variables.css';
+@import '@common/variables.css';
+
+/* Universal selectors (*) can target <script> elements
+ * and make them display. I don't want that to happen,
+ * so overriding display here.
+ */
+script {
+    display: none !important;
+}
 
 html {
     box-sizing: border-box;
@@ -8,16 +16,89 @@ html {
     box-sizing: inherit;
 }
 
+* {
+    /* easier to style if everything is assumed to have no margin-top */
+    margin-top: 0;
+}
+
 body {
     font-family: $family-body;
+    font-weight: $weight-normal;
+    font-size: $size-normal;
+    letter-spacing: $letter-spacing-normal;
+    line-height: $line-height-normal;
+    color: $c--body;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5 {
+h1 {
+    margin: 0 0 22px 0;
     font-family: $family-header;
+    font-weight: $weight-light;
+    font-size: $size-h1;
+    letter-spacing: $letter-spacing-h1;
+    line-height: 48px;
+}
+
+h2 {
+    margin: 0 0 22px 0;
+    font-family: $family-header;
+    font-weight: $weight-light;
+    font-size: $size-h2;
+    letter-spacing: $letter-spacing-h2;
+    line-height: 31px;
+}
+
+h3 {
+    margin: 0 0 22px 0;
+    font-family: $family-header;
+    font-weight: $weight-light;
+    font-size: $size-h3;
+    letter-spacing: $letter-spacing-h3;
+    line-height: 27px;
+}
+
+h4 {
+    margin: 0 0 22px 0;
+    font-family: $family-header;
+    font-weight: $weight-normal;
+    font-size: $size-h4;
+    line-height: 29px;
+    letter-spacing: $letter-spacing-h4;
+}
+
+h5 {
+    margin: 0 0 22px 0;
+    font-family: $family-header;
+    font-weight: $weight-medium;
+    font-size: $size-h5;
+    line-height: 24px;
+    letter-spacing: $letter-spacing-h5;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+
+    &.thumbnail {
+        width: 100px;
+    }
+}
+
+a {
+    color: $c--link;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+p, ul {
+    margin-bottom: $mb--standard;
+}
+
+.medium {
+    font-weight: $weight-medium;
 }
