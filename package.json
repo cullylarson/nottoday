@@ -5,6 +5,7 @@
     "scripts": {
         "server:start": "NODE_ENV=production node server/app.js",
         "server:watch": "forever --watch --minUptime 2000 --spinSleepTime 5000 --watchDirectory='./server/' server/app.js",
+        "server:lint": "esw --color --watch ./server",
         "server:forever": "forever --minUptime 1000 --spinSleepTime 2000 server/app.js",
         "client:clean": "rm -rf build/client",
         "client:build": "npm run client:clean && webpack --mode production",
@@ -21,6 +22,8 @@
     "author": "Cully Larson <cully.larson@gmail.com>",
     "dependencies": {
         "express": "^4.16.4",
+        "express-mysql-session": "^2.1.0",
+        "express-session": "^1.15.6",
         "module-alias": "^2.2.0",
         "mysql": "^2.16.0",
         "passport": "^0.4.0",
@@ -47,6 +50,7 @@
         "eslint-config-standard-react": "^7.0.2",
         "eslint-loader": "^2.1.2",
         "eslint-plugin-react": "^7.12.4",
+        "eslint-watch": "^5.0.1",
         "forever": "^0.15.3",
         "normalize.css": "^8.0.1",
         "path-to-regexp": "^3.0.0",

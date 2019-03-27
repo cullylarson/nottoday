@@ -2,9 +2,11 @@ require('module-alias/register')
 const fs = require('fs')
 const path = require('path')
 const express = require('express')
-const {createPool} = require('mysql')
+const expressSession = require('express-session')
+const MysqlSessionStore = require('express-mysql-session')(expressSession)
+const { createPool } = require('mysql')
 const passport = require('passport')
-const TwitterStrategy = require('passport-twitter').Strategy
+const TwitterStrategy = require('passport-twitter')
 const port = process.env.PORT || 3020
 const app = express()
 
@@ -24,7 +26,7 @@ const getConfig = () => {
 }
 
 const getManifest = (() => {
-    let cachedManifest = undefined
+    let cachedManifest
 
     return () => {
         // don't cache in dev mode; just re-read it every time
@@ -69,8 +71,64 @@ const clientConfig = {
 
 const staticPath = path.resolve(__dirname, '../build/client/')
 
+const sessionStore = new MysqlSessionStore({
+    createDatabaseTable: true,
+    endConnectionOnClose: false,
+    schema: {
+        tableName: 'sessions',
+        columnNames: {
+            session_id: 'session_id',
+            expires: 'expires',
+            data: 'data',
+        },
+    },
+}, pool)
+
+passport.use('twitter', new TwitterStrategy(
+    {
+        consumerKey: config.twitter.consumerKey,
+        consumerSecret: config.twitter.consumerSecret,
+        callbackURL: config.twitter.callbackUrl,
+    },
+    (token, tokenSecret, profile, done) => {
+        // TODO: store the token and tokenSecret in the database
+        return done(null, profile)
+    }
+))
+
+passport.serializeUser((user, done) => {
+    // TODO: just store the id
+    console.log('serialize', user)
+    done(null, user)
+})
+
+passport.deserializeUser((user, done) => {
+    // TODO: retrieve the info from the database use the user id (`user` should just be the user id)
+    console.log('deserialize', user)
+    done(null, user)
+})
+
 // serves all static files
 app.use(express.static(staticPath))
+
+app.use(expressSession({
+    secret: config.sessions.secret,
+    resave: false,
+    saveUninitialized: false,
+    store: sessionStore,
+}))
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+app.get('/auth/twitter', passport.authenticate('twitter'))
+
+app.get('/auth/twitter/callback',
+    passport.authenticate('twitter', { failureRedirect: '/login' }),
+    (req, res) => {
+        res.redirect('/')
+    }
+)
 
 // all other paths defer to the SPA
 app.get('*', (req, res) => {

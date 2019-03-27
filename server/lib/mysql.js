@@ -11,7 +11,7 @@ function query(pool, queryStr, params) {
     return new Promise((resolve, reject) => {
         pool.query(queryStr, params, (error, results, fields) => {
             if(error) reject(error)
-            else resolve({results, fields})
+            else resolve({ results, fields })
         })
     })
 }

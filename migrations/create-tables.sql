@@ -1,4 +1,4 @@
-CREATE TABLE sessions (
+CREATE TABLE logins (
     twitterId           BIGINT UNSIGNED NOT NULL,
     token               TEXT,
     tokenSecret         TEXT,
