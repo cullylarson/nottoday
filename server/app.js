@@ -10,9 +10,9 @@ const passport = require('passport')
 const TwitterStrategy = require('passport-twitter')
 const jwt = require('jsonwebtoken')
 const base64url = require('base64-url')
-const { responseError } = require('@app/lib/response')
-const { messageObj } = require('@app/lib/messages')
-const userRepo = require('@app/user/user-repo')
+const { responseError } = require('@server/lib/response')
+const { messageObj } = require('@server/lib/messages')
+const userRepo = require('@server/user/user-repo')
 const port = process.env.PORT || 3020
 const app = express()
 
@@ -129,7 +129,7 @@ const handle404 = (req, res, next) => {
     res.status(404).json(responseError(messageObj('page-not-found', 'Page not found.')))
 }
 
-app.use('/api', require('@app/api')(pool, config.auth.encryptionSecret))
+app.use('/api', require('@server/api')(pool, config.auth.encryptionSecret))
 
 // serves all static files
 app.use(express.static(staticPath))

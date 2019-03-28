@@ -1,6 +1,6 @@
 const { get, toString, identity } = require('@cullylarson/f')
-const { query } = require('@app/lib/mysql')
-const { getParams } = require('@app/lib/params')
+const { query } = require('@server/lib/mysql')
+const { getParams } = require('@server/lib/params')
 
 const prepareResult = getParams({
     twitterId: [undefined, toString],

@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import { withRouter } from 'react-router'
-import { scrollTop } from '@app/lib/scroll'
+import { scrollTop } from '@client/lib/scroll'
 
 // scrolls to top of page on mount
 class ScrollTop extends Component {

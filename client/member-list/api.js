@@ -1,6 +1,6 @@
-import { getOffset } from '@app/lib/pagination'
-import { paramUrl } from '@app/lib/url'
-import { bearer, responseData } from '@app/lib/request'
+import { getOffset } from '@client/lib/pagination'
+import { paramUrl } from '@client/lib/url'
+import { bearer, responseData } from '@client/lib/request'
 
 export function getMemberLists({ apiUrl, accessToken, page, perPage }) {
     const query = {

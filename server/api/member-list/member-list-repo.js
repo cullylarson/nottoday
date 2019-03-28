@@ -1,4 +1,4 @@
-const { getParams } = require('@app/lib/params')
+const { getParams } = require('@server/lib/params')
 
 const prepareResult = getParams({
 })

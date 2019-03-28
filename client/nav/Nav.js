@@ -3,9 +3,9 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { withRouter } from 'react-router'
-import { classnames } from '@app/lib/classes'
+import { classnames } from '@client/lib/classes'
 import { toggleMenu } from './actions'
-import { navActiveClass } from '@app/lib/nav'
+import { navActiveClass } from '@client/lib/nav'
 
 import './style/nav.css'
 

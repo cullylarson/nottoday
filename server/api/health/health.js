@@ -1,4 +1,4 @@
-const { query } = require('@app/lib/mysql')
+const { query } = require('@server/lib/mysql')
 
 const showTables = (pool) => {
     return query(pool, 'SHOW TABLES')

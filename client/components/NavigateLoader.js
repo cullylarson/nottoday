@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
-import { doLoadActions } from '@app/lib/load-actions'
+import { doLoadActions } from '@client/lib/load-actions'
 
 const mapStateToProps = (state) => ({})
 

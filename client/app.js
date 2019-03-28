@@ -3,9 +3,9 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose as reduxCompose } from 'redux'
 import thunk from 'redux-thunk'
-import { getAuthSession, verifyAuthentication, getReturnPath } from '@app/lib/auth'
-import rootReducer from '@app/root-reducer'
-import App from '@app/app/App'
+import { getAuthSession, verifyAuthentication, getReturnPath } from '@client/lib/auth'
+import rootReducer from '@client/root-reducer'
+import App from '@client/app/App'
 
 const composeEnhancers = process.env.NODE_ENV === 'development'
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || reduxCompose

@@ -5,20 +5,20 @@ import {
     Switch,
 } from 'react-router-dom'
 import DocumentTitle from 'react-document-title'
-import NavigateLoader from '@app/components/NavigateLoader'
-import ScrollTop from '@app/components/ScrollTop'
-import Loading from '@app/components/Loading'
-import CheckAuth from '@app/components/CheckAuth'
-import LastPage from '@app/the-history/LastPage'
-import rootLoadActions from '@app/root-load-actions'
-import { title } from '@app/lib/title'
+import NavigateLoader from '@client/components/NavigateLoader'
+import ScrollTop from '@client/components/ScrollTop'
+import Loading from '@client/components/Loading'
+import CheckAuth from '@client/components/CheckAuth'
+import LastPage from '@client/the-history/LastPage'
+import rootLoadActions from '@client/root-load-actions'
+import { title } from '@client/lib/title'
 
 import './style/app.css'
 
 const Layout = lazy(() => import('./Layout'))
 const Home = lazy(() => import('./Home'))
 const Login = lazy(() => import('./Login'))
-const MemberLists = lazy(() => import('@app/member-list/MemberLists'))
+const MemberLists = lazy(() => import('@client/member-list/MemberLists'))
 
 const NotFound = () => {
     return (

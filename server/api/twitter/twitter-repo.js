@@ -1,7 +1,7 @@
 const percentEncode = require('oauth-percent-encode')
 const { createHmac } = require('crypto')
 const { compose, join, map } = require('@cullylarson/f')
-const { randomStr } = require('@app/lib/rando')
+const { randomStr } = require('@server/lib/rando')
 
 const lexStringCompare = (a, b) => {
     if(a < b) return -1

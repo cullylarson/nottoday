@@ -14,11 +14,11 @@
         "test": "jest ./server ./client"
     },
     "_moduleAliases": {
-        "@app": "./server"
+        "@server": "./server"
     },
     "jest": {
         "moduleNameMapper": {
-            "^@app(.*)$": "<rootDir>/server$1"
+            "^@server(.*)$": "<rootDir>/server$1"
         }
     },
     "repository": {

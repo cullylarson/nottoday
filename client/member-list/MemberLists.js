@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import DocumentTitle from 'react-document-title'
-import { title } from '@app/lib/title'
+import { title } from '@client/lib/title'
 
 export default () => {
     return (
