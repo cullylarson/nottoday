@@ -1,12 +1,16 @@
 require('module-alias/register')
 const fs = require('fs')
 const path = require('path')
+const { pick, isObject } = require('@cullylarson/f')
 const express = require('express')
 const expressSession = require('express-session')
 const MysqlSessionStore = require('express-mysql-session')(expressSession)
 const { createPool } = require('mysql')
 const passport = require('passport')
 const TwitterStrategy = require('passport-twitter')
+const jwt = require('jsonwebtoken')
+const base64url = require('base64-url')
+const userRepo = require('@app/user/user-repo')
 const port = process.env.PORT || 3020
 const app = express()
 
@@ -67,6 +71,9 @@ const clientConfig = {
     api: {
         baseUrl: formatApiUrl(config.api.baseUrl),
     },
+    auth: {
+        authUrl: config.auth.authUrl,
+    },
 }
 
 const staticPath = path.resolve(__dirname, '../build/client/')
@@ -91,21 +98,29 @@ passport.use('twitter', new TwitterStrategy(
         callbackURL: config.twitter.callbackUrl,
     },
     (token, tokenSecret, profile, done) => {
-        // TODO: store the token and tokenSecret in the database
-        return done(null, profile)
+        userRepo.add(pool, {
+            twitterId: profile._json.id_str,
+            screenName: profile._json.screen_name,
+            accountUrl: profile._json.url,
+            profileImageUrl: profile._json.profile_image_url_https,
+            token,
+            tokenSecret,
+        })
+            .then(() => done(null, profile._json.id_str))
+            .catch(_ => done(Error('Something went wrong while storing authentication data.')))
     }
 ))
 
-passport.serializeUser((user, done) => {
-    // TODO: just store the id
-    console.log('serialize', user)
-    done(null, user)
+passport.serializeUser((twitterId, done) => {
+    done(null, { twitterId })
 })
 
-passport.deserializeUser((user, done) => {
-    // TODO: retrieve the info from the database use the user id (`user` should just be the user id)
-    console.log('deserialize', user)
-    done(null, user)
+passport.deserializeUser(({ twitterId }, done) => {
+    userRepo.getOne(pool, twitterId)
+        .then(user => {
+            done(null, user)
+        })
+        .catch(_ => done(new Error('Something went wrong while retrieving user data.')))
 })
 
 // serves all static files
@@ -123,12 +138,35 @@ app.use(passport.session())
 
 app.get('/auth/twitter', passport.authenticate('twitter'))
 
-app.get('/auth/twitter/callback',
-    passport.authenticate('twitter', { failureRedirect: '/login' }),
-    (req, res) => {
-        res.redirect('/')
+app.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/login' }), (req, res, next) => {
+    if(!req.user) {
+        res.send(500, { message: 'Something went wrong and you could not be authenticated.' })
+        return next()
     }
-)
+
+    const userP = isObject(req.user)
+        ? Promise.resolve(req.user)
+        // req.user has not be 'deserialized' yet; it's just a twitterId. so, need to fetch it
+        : userRepo.getOne(pool, req.user)
+
+    userP
+        .then(user => {
+            const token = jwt.sign(pick([
+                'twitterId',
+                'screenName',
+                'accountUrl',
+                'profileImageUrl',
+            ], user), config.auth.encryptionSecret, {
+                expiresIn: '4h',
+            })
+
+            res.redirect(`/login/callback/#token=${base64url.encode(token)}`)
+        })
+        .catch(_ => {
+            res.send(500, { message: 'Something went wrong and you could not be authenticated.' })
+            next()
+        })
+})
 
 // all other paths defer to the SPA
 app.get('*', (req, res) => {

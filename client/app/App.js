@@ -8,6 +8,7 @@ import DocumentTitle from 'react-document-title'
 import NavigateLoader from '@app/components/NavigateLoader'
 import ScrollTop from '@app/components/ScrollTop'
 import Loading from '@app/components/Loading'
+import CheckAuth from '@app/components/CheckAuth'
 import LastPage from '@app/the-history/LastPage'
 import rootLoadActions from '@app/root-load-actions'
 import { title } from '@app/lib/title'
@@ -35,6 +36,7 @@ const App = () => {
     return (
         <Router>
             <NavigateLoader loadActions={rootLoadActions}>
+                <CheckAuth />
                 <ScrollTop>
                     <LastPage blacklist={['/auth/twitter', '/auth/twitter/callback', '/login']}>
                         <Suspense fallback={<Loading />}>
