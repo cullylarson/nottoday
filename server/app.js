@@ -10,6 +10,8 @@ const passport = require('passport')
 const TwitterStrategy = require('passport-twitter')
 const jwt = require('jsonwebtoken')
 const base64url = require('base64-url')
+const { responseError } = require('@app/lib/response')
+const { messageObj } = require('@app/lib/messages')
 const userRepo = require('@app/user/user-repo')
 const port = process.env.PORT || 3020
 const app = express()
@@ -123,6 +125,12 @@ passport.deserializeUser(({ twitterId }, done) => {
         .catch(_ => done(new Error('Something went wrong while retrieving user data.')))
 })
 
+const handle404 = (req, res, next) => {
+    res.status(404).json(responseError(messageObj('page-not-found', 'Page not found.')))
+}
+
+app.use('/api', require('@app/api')(pool, config.auth.encryptionSecret))
+
 // serves all static files
 app.use(express.static(staticPath))
 
@@ -200,5 +208,7 @@ app.get('*', (req, res) => {
     </body>
 </html>`)
 })
+
+app.use(handle404)
 
 app.listen(port)

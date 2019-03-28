@@ -17,6 +17,7 @@ const getIntialState = (config) => {
     return {
         auth: authSession,
         config,
+        nav: undefined, // undefined will load the initial state from the reducer
         theHistory: undefined, // undefined will load the initial state from the reducer
         memberLists: undefined, // undefined will load the initial state from the reducer
     }

@@ -1,0 +1,14 @@
+@import '@common/variables.css';
+
+#app > nav {
+    a, a:active, a:visited {
+    }
+
+    a:hover {
+    }
+
+    li.active > a,
+    a.active {
+        font-weight: $weight-medium;
+    }
+}

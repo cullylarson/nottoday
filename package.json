@@ -21,9 +21,11 @@
     },
     "author": "Cully Larson <cully.larson@gmail.com>",
     "dependencies": {
-        "base64-url": "^2.2.0",
         "@cullylarson/f": "0.0.7",
+        "base64-url": "^2.2.0",
+        "body-parser": "^1.18.3",
         "express": "^4.16.4",
+        "express-jwt": "^5.3.1",
         "express-mysql-session": "^2.1.0",
         "express-session": "^1.15.6",
         "jsonwebtoken": "^8.5.1",
