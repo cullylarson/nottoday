@@ -1,6 +1,7 @@
 // const { getInt } = require('@cullylarson/f')
 const { messageObj } = require('@app/lib/messages')
 const { responseError } = require('@app/lib/response')
+const twitterRepo = require('@app/api/twitter/twitter-repo')
 
 module.exports = {
     list: (pool) => (req, res) => {
@@ -8,6 +9,7 @@ module.exports = {
         // const num = getInt('num', 20, params)
         // const offset = getInt('offset', 0, params)
 
+        console.log(req.user)
         Promise.resolve([30, []])
             .then(([numTotal, memberLists]) => res.json({ numTotal, memberLists }))
             .catch(err => {

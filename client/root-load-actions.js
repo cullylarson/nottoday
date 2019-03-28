@@ -1,5 +1,5 @@
-import memberListsLoadActions from '@app/member-lists/load-actions'
+import memberListLoadActions from '@app/member-list/load-actions'
 
 export default [
-    memberListsLoadActions,
+    memberListLoadActions,
 ]

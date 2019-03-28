@@ -8,7 +8,7 @@ export function getMemberLists({ apiUrl, accessToken, page, perPage }) {
         offset: getOffset(page, perPage),
     }
 
-    const url = paramUrl(`${apiUrl}/member-lists`, query)
+    const url = paramUrl(`${apiUrl}/member-list`, query)
 
     return fetch(url, {
         method: 'get',

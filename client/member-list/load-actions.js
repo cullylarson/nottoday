@@ -6,6 +6,6 @@ const loadMemberLists = (dispatch, { page }) => {
 }
 
 export default {
-    '/member-lists/p/:page(\\d+)': loadMemberLists,
-    '/member-lists': loadMemberLists,
+    '/member-list/p/:page(\\d+)': loadMemberLists,
+    '/member-list': loadMemberLists,
 }

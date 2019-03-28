@@ -33,7 +33,7 @@ export function getMemberLists(page) {
             apiUrl: state.config.api.baseUrl,
             accessToken: state.auth.accessToken,
             page,
-            perPage: state.memberLists.list.perPage,
+            perPage: state.memberList.list.perPage,
         })
             .then(data => {
                 if(data.errors) dispatch(getMemberListsFailure(data.errors))

@@ -39,8 +39,8 @@ const Nav = ({ location, navState, actions }) => {
 
                 <ul className={ulClass}>
                     <li><NavLink exact to='/'>Home</NavLink></li>
-                    <li className={navActiveClass(location, { starts: '/member-lists' })}>
-                        <NavLink to='/member-lists'>Member Lists</NavLink>
+                    <li className={navActiveClass(location, { starts: '/member-list' })}>
+                        <NavLink to='/member-list'>Member Lists</NavLink>
                     </li>
                     <li><NavLink to='/logout'>Logout</NavLink></li>
                 </ul>
