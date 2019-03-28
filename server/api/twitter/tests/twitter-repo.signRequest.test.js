@@ -1,6 +1,6 @@
 const { signRequest } = require('../twitter-repo')
 
-test('Prints times correctly', () => {
+test('Correctly signs some sample data.', () => {
     const signed = signRequest('kAcSOqF21Fu85e7zjz7ZN2U4ZRhfV3WpwPAoE3Z7kBw', 'LswwdoUaIvS8ltyTt5jkRh4J50vUPVVHtR2YPi5kE', {
         include_entities: 'true',
         oauth_consumer_key: 'xvz1evFS4wEEPTGEFPHBog',

@@ -14,11 +14,13 @@
         "test": "jest ./server ./client"
     },
     "_moduleAliases": {
-        "@server": "./server"
+        "@server": "./server",
+        "@shared": "./shared"
     },
     "jest": {
         "moduleNameMapper": {
-            "^@server(.*)$": "<rootDir>/server$1"
+            "^@server(.*)$": "<rootDir>/server$1",
+            "^@shared(.*)$": "<rootDir>/shared$1"
         }
     },
     "repository": {
@@ -31,6 +33,7 @@
         "base64-url": "^2.2.0",
         "body-parser": "^1.18.3",
         "eslint-plugin-jest": "^22.4.1",
+        "esm": "^3.2.21",
         "express": "^4.16.4",
         "express-jwt": "^5.3.1",
         "express-mysql-session": "^2.1.0",
