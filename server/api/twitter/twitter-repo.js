@@ -1,10 +1,13 @@
 const percentEncode = require('oauth-percent-encode')
+const fetch = require('node-fetch')
 const { createHmac } = require('crypto')
 const { compose, join, map, reduce } = require('@cullylarson/f')
 const { randomStr } = require('@server/lib/rando')
 const { paramUrl } = require('@server/lib/url')
 const { nowS } = require('@server/lib/dates')
 const { responseData } = require('@server/lib/request')
+
+const toString = x => x + ''
 
 const lexStringCompare = (a, b) => {
     if(a < b) return -1
@@ -19,7 +22,7 @@ const buildParamString = compose(
     map(map(percentEncode)),
     x => Object.values(x),
     map((v, k) => ([k, v])),
-    map(x => x.toString ? x.toString() : x),
+    map(toString),
 )
 
 const signRequest = (consumerSecret, tokenSecret, authParams, requestUrl, requestMethod, payload) => {
@@ -42,19 +45,19 @@ const signRequest = (consumerSecret, tokenSecret, authParams, requestUrl, reques
     return createHmac('sha1', signingKey).update(encodedParamStr, 'utf8').digest('base64')
 }
 
-const buildTwitterAuth = ({ consumerKey, consumerSecret, token, tokenSecret }, requestUrl, requestMethod, payload) => {
+const buildTwitterAuth = (tokens, requestUrl, requestMethod, payload) => {
     const authBase = {
-        oauth_consumer_key: consumerKey,
+        oauth_consumer_key: tokens.consumerKey,
         oauth_nonce: randomStr(45),
         oauth_signature_method: 'HMAC-SHA1',
         oauth_timestamp: nowS(),
-        oauth_token: token,
+        oauth_token: tokens.token,
         oauth_version: '1.0',
     }
 
     const auth = {
         ...authBase,
-        oauth_signature: signRequest(consumerSecret, tokenSecret, authBase, requestUrl, requestMethod, payload),
+        oauth_signature: signRequest(tokens.consumerSecret, tokens.tokenSecret, authBase, requestUrl, requestMethod, payload),
     }
 
     return 'OAuth ' + compose(
@@ -65,6 +68,7 @@ const buildTwitterAuth = ({ consumerKey, consumerSecret, token, tokenSecret }, r
                 `${percentEncode(k)}="${percentEncode(v)}"`,
             ]
         }, []),
+        map(toString),
     )(auth)
 }
 
