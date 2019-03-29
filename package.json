@@ -3,10 +3,10 @@
     "version": "0.0.1",
     "description": "Twitter blocklist assistant.",
     "scripts": {
-        "server:start": "NODE_ENV=production node server/entry.js",
-        "server:watch": "forever --watch --minUptime 2000 --spinSleepTime 5000 --watchDirectory='./server/' server/entry.js",
+        "server:start": "NODE_ENV=production node server/app.js",
+        "server:watch": "forever --watch --minUptime 2000 --spinSleepTime 5000 --watchDirectory='./server/' server/app.js",
         "server:lint": "esw --color --watch ./server",
-        "server:forever": "forever --minUptime 1000 --spinSleepTime 2000 server/entry.js",
+        "server:forever": "forever --minUptime 1000 --spinSleepTime 2000 server/app.js",
         "client:clean": "rm -rf build/client",
         "client:build": "npm run client:clean && webpack --mode production",
         "client:dev": "npm run client:clean && webpack --mode development",
@@ -14,13 +14,11 @@
         "test": "jest ./server ./client"
     },
     "_moduleAliases": {
-        "@server": "./server",
-        "@shared": "./shared"
+        "@server": "./server"
     },
     "jest": {
         "moduleNameMapper": {
-            "^@server(.*)$": "<rootDir>/server$1",
-            "^@shared(.*)$": "<rootDir>/shared$1"
+            "^@server(.*)$": "<rootDir>/server$1"
         }
     },
     "repository": {

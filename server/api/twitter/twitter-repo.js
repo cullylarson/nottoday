@@ -1,10 +1,10 @@
-import percentEncode from 'oauth-percent-encode'
-import { createHmac } from 'crypto'
-import { compose, join, map, reduce } from '@cullylarson/f'
-import { randomStr } from '@server/lib/rando'
-import { paramUrl } from '@shared/lib/url'
-import { nowS } from '@server/lib/dates'
-import { responseData } from '@shared/lib/request'
+const percentEncode = require('oauth-percent-encode')
+const { createHmac } = require('crypto')
+const { compose, join, map, reduce } = require('@cullylarson/f')
+const { randomStr } = require('@server/lib/rando')
+const { paramUrl } = require('@server/lib/url')
+const { nowS } = require('@server/lib/dates')
+const { responseData } = require('@server/lib/request')
 
 const lexStringCompare = (a, b) => {
     if(a < b) return -1

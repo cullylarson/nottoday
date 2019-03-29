@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
-import { paramUrl } from '@shared/lib/url'
+import { paramUrl } from '@client/lib/url'
 import { isAuthenticated, saveReturnPath } from '@client/lib/auth'
 
 const mapStateToProps = ({ auth, config }) => ({

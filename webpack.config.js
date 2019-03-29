@@ -24,7 +24,6 @@ module.exports = (_, argv) => {
             resolve: {
                 alias: {
                     '@client': path.resolve(__dirname, 'client'),
-                    '@shared': path.resolve(__dirname, 'shared'),
                 },
             },
             module: {

@@ -9,7 +9,7 @@ module.exports = {
         // const num = getInt('num', 20, params)
         // const offset = getInt('offset', 0, params)
 
-        twitterRepo.getMemberLists({consumerKey, consumerSecret, token: req.user.token, tokenSecret: req.user.tokenSecret}, req.user.twitterId)
+        twitterRepo.getMemberLists({ consumerKey, consumerSecret, token: req.user.token, tokenSecret: req.user.tokenSecret }, req.user.twitterId)
             .then(([numTotal, memberLists]) => res.json({ numTotal, memberLists }))
             .catch(err => {
                 throw err
