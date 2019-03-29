@@ -1,9 +1,10 @@
-const percentEncode = require('oauth-percent-encode')
-const { createHmac } = require('crypto')
-const { compose, join, map, reduce } = require('@cullylarson/f')
-const { randomStr } = require('@server/lib/rando')
-const { paramUrl } = require('@shared/lib/url')
-const { nowS } = require('@server/lib/dates')
+import percentEncode from 'oauth-percent-encode'
+import { createHmac } from 'crypto'
+import { compose, join, map, reduce } from '@cullylarson/f'
+import { randomStr } from '@server/lib/rando'
+import { paramUrl } from '@shared/lib/url'
+import { nowS } from '@server/lib/dates'
+import { responseData } from '@shared/lib/request'
 
 const lexStringCompare = (a, b) => {
     if(a < b) return -1
@@ -68,20 +69,28 @@ const buildTwitterAuth = ({ consumerKey, consumerSecret, token, tokenSecret }, r
 }
 
 const getMemberLists = (tokens, userId) => {
-    const baseUrl = 'https://api.twitter.com/1.1/lists/memberships.json'
     const method = 'get'
     const params = {
         user_id: userId,
     }
 
-    const url = paramUrl(`${baseUrl}`, params)
+    const url = paramUrl('https://api.twitter.com/1.1/lists/memberships.json', params)
 
     return fetch(url, {
         method,
         headers: {
-            'Authorization': bearer(accessToken),
+            'Authorization': buildTwitterAuth(tokens, url, method, params),
         },
     })
+        .then(responseData)
+        .then(({ response, data }) => {
+            if(response.ok) {
+                console.log('ok', data) // stub
+            }
+            else {
+                console.log('failed', data) // stub
+            }
+        })
 }
 
 module.exports = {

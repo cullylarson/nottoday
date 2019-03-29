@@ -55,9 +55,9 @@ const setUser = (pool) => (req, res, next) => {
         })
 }
 
-module.exports = (pool, authEncryptionSecret) => {
+module.exports = (pool, config) => {
     const router = require('express').Router()
-    const checkJwt = CheckJwt(authEncryptionSecret)
+    const checkJwt = CheckJwt(config.auth.encryptionSecret)
 
     router.use(function(req, res, next) {
         res.header('Access-Control-Allow-Origin', '*')
@@ -80,7 +80,7 @@ module.exports = (pool, authEncryptionSecret) => {
     router.use(setUser(pool))
     router.use(checkError)
 
-    router.get('/member-list', memberListsController.list(pool))
+    router.get('/member-list', memberListsController.list(pool, config.twitter.consumerKey, config.twitter.consumerSecret))
 
     router.use(handle404)
 

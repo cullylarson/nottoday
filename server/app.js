@@ -129,7 +129,7 @@ const handle404 = (req, res, next) => {
     res.status(404).json(responseError(messageObj('page-not-found', 'Page not found.')))
 }
 
-app.use('/api', require('@server/api')(pool, config.auth.encryptionSecret))
+app.use('/api', require('@server/api')(pool, config))
 
 // serves all static files
 app.use(express.static(staticPath))

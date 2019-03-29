@@ -3,10 +3,10 @@
     "version": "0.0.1",
     "description": "Twitter blocklist assistant.",
     "scripts": {
-        "server:start": "NODE_ENV=production node server/app.js",
-        "server:watch": "forever --watch --minUptime 2000 --spinSleepTime 5000 --watchDirectory='./server/' server/app.js",
+        "server:start": "NODE_ENV=production node server/entry.js",
+        "server:watch": "forever --watch --minUptime 2000 --spinSleepTime 5000 --watchDirectory='./server/' server/entry.js",
         "server:lint": "esw --color --watch ./server",
-        "server:forever": "forever --minUptime 1000 --spinSleepTime 2000 server/app.js",
+        "server:forever": "forever --minUptime 1000 --spinSleepTime 2000 server/entry.js",
         "client:clean": "rm -rf build/client",
         "client:build": "npm run client:clean && webpack --mode production",
         "client:dev": "npm run client:clean && webpack --mode development",
