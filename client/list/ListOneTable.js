@@ -1,20 +1,32 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
+import Messages from '@client/components/Messages'
+import Pagination from '@client/components/Pagination'
 import Loading from '@client/components/Loading'
 
 const renderSubscriber = (subscriber) => {
     return (<li key={subscriber.id_str}><a href={`https://twitter.com/${encodeURIComponent(subscriber.screen_name)}`}>{subscriber.screen_name}</a></li>)
 }
 
-const renderSubscribers = (subscribers) => {
+const renderSubscribers = (listId, subscribers) => {
     // TODO -- paginate subscribers
     if(subscribers.doing) return <Loading />
     if(subscribers.noResults) return (<em>This list has no subscribers.</em>)
 
     return (
-        <ul>
-            {subscribers.data.map(renderSubscriber)}
-        </ul>
+        <Fragment>
+            <Messages error={subscribers.errors} />
+
+            <ul>
+                {subscribers.data.map(renderSubscriber)}
+            </ul>
+
+            <Pagination
+                nextCursor={subscribers.nextCursor}
+                previousCursor={subscribers.previousCursor}
+                urlTemplate={x => x && x !== '-1' && x !== -1 && x !== '0' ? `/list/${listId}/p/${x}` : '/list/{$listId}'}
+            />
+        </Fragment>
     )
 }
 
@@ -34,7 +46,7 @@ export default ({ list, subscribers }) => {
                 </tr>
                 <tr>
                     <th>Subscribers</th>
-                    <td>{renderSubscribers(subscribers)}</td>
+                    <td>{renderSubscribers(list.id_str, subscribers)}</td>
                 </tr>
             </tbody>
         </table>
