@@ -33,7 +33,7 @@ const renderAll = (memberList) => {
     if(memberList.list.noResults) return <p><em>You are not a member of any lists.</em></p>
 
     return (
-        <table className='accounts-list'>
+        <table>
             <thead>
                 <tr>
                     <th>Name</th>

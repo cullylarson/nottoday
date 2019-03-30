@@ -1,6 +1,24 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import Loading from '@client/components/Loading'
 
-export default ({ list }) => {
+const renderSubscriber = (subscriber) => {
+    return (<li key={subscriber.id_str}><a href={`https://twitter.com/${encodeURIComponent(subscriber.screen_name)}`}>{subscriber.screen_name}</a></li>)
+}
+
+const renderSubscribers = (subscribers) => {
+    // TODO -- paginate subscribers
+    if(subscribers.doing) return <Loading />
+    if(subscribers.noResults) return (<em>This list has no subscribers.</em>)
+
+    return (
+        <ul>
+            {subscribers.data.map(renderSubscriber)}
+        </ul>
+    )
+}
+
+export default ({ list, subscribers }) => {
     if(!list) return ''
 
     return (
@@ -11,8 +29,12 @@ export default ({ list }) => {
                     <td>{list.name}</td>
                 </tr>
                 <tr>
-                    <th>Members</th>
-                    <td>{list.members}</td>
+                    <th>Owner</th>
+                    <td><Link to={`/user/${list.user.id_str}`}>{'@' + list.user.screen_name}</Link></td>
+                </tr>
+                <tr>
+                    <th>Subscribers</th>
+                    <td>{renderSubscribers(subscribers)}</td>
                 </tr>
             </tbody>
         </table>

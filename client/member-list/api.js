@@ -1,6 +1,8 @@
 import { paramUrl } from '@client/lib/url'
 import { bearer, responseData } from '@client/lib/request'
 
+const cursorSet = cursor => cursor !== '0' && cursor
+
 export function getMemberLists({ apiUrl, accessToken, cursor }) {
     const query = {
         cursor,
@@ -17,7 +19,7 @@ export function getMemberLists({ apiUrl, accessToken, cursor }) {
         .then(responseData)
         .then(({ response, data }) => {
             if(response.ok) {
-                const noResults = (!data.lists || !data.lists.length) && !data.next_cursor_str && !data.previous_cursor_str
+                const noResults = (!data.lists || !data.lists.length) && !cursorSet(data.next_cursor_str) && !cursorSet(data.previous_cursor_str)
 
                 return {
                     lists: data.lists,

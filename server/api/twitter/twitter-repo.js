@@ -126,8 +126,39 @@ const getList = (tokens, listId) => {
         })
 }
 
+const getListSubscribers = (tokens, numPerPage, cursor, listId) => {
+    const method = 'get'
+    const params = {
+        ...{
+            list_id: listId,
+            skip_status: 'true',
+            count: numPerPage,
+        },
+        ...(cursor && { cursor }), // empty cursor will produce a bad request
+    }
+
+    const url = paramUrl('https://api.twitter.com/1.1/lists/subscribers.json', params)
+
+    return fetch(url, {
+        method,
+        headers: {
+            'Authorization': buildTwitterAuth(tokens, url, method, params),
+        },
+    })
+        .then(responseData)
+        .then(({ response, data }) => {
+            if(response.ok) {
+                return data
+            }
+            else {
+                throw new Error('Could not fetch list subscribers from Twitter.')
+            }
+        })
+}
+
 module.exports = {
     signRequest,
     getMemberLists,
     getList,
+    getListSubscribers,
 }

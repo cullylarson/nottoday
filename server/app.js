@@ -154,7 +154,7 @@ app.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedi
 
     const userP = isObject(req.user)
         ? Promise.resolve(req.user)
-        // req.user has not be 'deserialized' yet; it's just a twitterId. so, need to fetch it
+        // req.user has not been 'deserialized' yet; it's just a twitterId. so, need to fetch it
         : userRepo.getOne(pool, req.user)
 
     userP

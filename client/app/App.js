@@ -48,6 +48,7 @@ const App = () => {
                                     <Route path='/member-list' component={MemberListsList} />
                                     <Route path='/member-list/p/:cursor' component={MemberListsList} />
                                     <Route path='/list/:id' component={ListView} />
+                                    <Route path='/list/:id/p/:cursor' component={ListView} />
                                     <Route path='/login' component={Login} />
                                     <Route exact path='/' component={Home} />
                                     <Route component={NotFound} />

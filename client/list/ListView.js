@@ -11,14 +11,14 @@ const mapStateToProps = ({ list }) => ({
 
 const mapDispatchToProps = (dispatch) => ({})
 
-const ListView = ({ list, actions }) => {
-    const renderList = (theList) => {
+const ListView = ({ list }) => {
+    const renderList = () => {
         if(list.one.doing) return <Loading />
-        if(!theList) return ''
+        if(!list.one.list) return ''
 
         return (
             <Fragment>
-                <ListOneTable list={theList} />
+                <ListOneTable list={list.one.list} subscribers={list.subscribers} />
 
                 <div className='actions'>
                     <Link className='btn' to={'/member-list'}>&laquo; Back to Member Lists</Link>
@@ -33,7 +33,7 @@ const ListView = ({ list, actions }) => {
 
             <Messages error={list.one.errors} />
 
-            {renderList(list.one.list)}
+            {renderList()}
         </Fragment>
     )
 }

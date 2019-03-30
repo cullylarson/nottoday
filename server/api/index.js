@@ -83,6 +83,7 @@ module.exports = (pool, config) => {
 
     router.get('/member-list', memberListsController.list(config.twitter.consumerKey, config.twitter.consumerSecret))
     router.get('/list/:id(\\d+)', listController.one(config.twitter.consumerKey, config.twitter.consumerSecret))
+    router.get('/list/:id(\\d+)/subscribers', listController.subscribers(config.twitter.consumerKey, config.twitter.consumerSecret))
 
     router.use(handle404)
 
