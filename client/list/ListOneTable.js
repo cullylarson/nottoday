@@ -5,11 +5,10 @@ import Pagination from '@client/components/Pagination'
 import Loading from '@client/components/Loading'
 
 const renderSubscriber = (subscriber) => {
-    return (<li key={subscriber.id_str}><a href={`https://twitter.com/${encodeURIComponent(subscriber.screen_name)}`}>{subscriber.screen_name}</a></li>)
+    return (<li key={subscriber.id_str}><Link to={`/user/${subscriber.id_str}`}>{'@' + subscriber.screen_name}</Link></li>)
 }
 
 const renderSubscribers = (listId, subscribers) => {
-    // TODO -- paginate subscribers
     if(subscribers.doing) return <Loading />
     if(subscribers.noResults) return (<em>This list has no subscribers.</em>)
 

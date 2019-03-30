@@ -156,9 +156,64 @@ const getListSubscribers = (tokens, numPerPage, cursor, listId) => {
         })
 }
 
+const getUser = (tokens, userId) => {
+    const method = 'get'
+    const params = {
+        user_id: userId,
+    }
+    const url = paramUrl('https://api.twitter.com/1.1/users/show.json', params)
+
+    return fetch(url, {
+        method,
+        headers: {
+            'Authorization': buildTwitterAuth(tokens, url, method, params),
+        },
+    })
+        .then(responseData)
+        .then(({ response, data }) => {
+            if(response.ok) {
+                return data
+            }
+            else {
+                throw new Error('Could not fetch user from Twitter.')
+            }
+        })
+}
+
+const getUserFollowers = (tokens, numPerPage, cursor, userId) => {
+    const method = 'get'
+    const params = {
+        ...{
+            user_id: userId,
+            count: numPerPage,
+        },
+        ...(cursor && { cursor }), // empty cursor will produce a bad request
+    }
+
+    const url = paramUrl('https://api.twitter.com/1.1/followers/list.json', params)
+
+    return fetch(url, {
+        method,
+        headers: {
+            'Authorization': buildTwitterAuth(tokens, url, method, params),
+        },
+    })
+        .then(responseData)
+        .then(({ response, data }) => {
+            if(response.ok) {
+                return data
+            }
+            else {
+                throw new Error('Could not fetch user followers from Twitter.')
+            }
+        })
+}
+
 module.exports = {
     signRequest,
     getMemberLists,
     getList,
     getListSubscribers,
+    getUser,
+    getUserFollowers,
 }

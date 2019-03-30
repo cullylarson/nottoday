@@ -21,6 +21,7 @@ const Login = lazy(() => import('./Login'))
 const Logout = lazy(() => import('./Logout'))
 const MemberListsList = lazy(() => import('@client/member-list/MemberListsList'))
 const ListView = lazy(() => import('@client/list/ListView'))
+const UserView = lazy(() => import('@client/user/UserView'))
 
 const NotFound = () => {
     return (
@@ -49,6 +50,8 @@ const App = () => {
                                     <Route path='/member-list/p/:cursor' component={MemberListsList} />
                                     <Route path='/list/:id' component={ListView} />
                                     <Route path='/list/:id/p/:cursor' component={ListView} />
+                                    <Route path='/user/:id' component={UserView} />
+                                    <Route path='/user/:id/p/:cursor' component={UserView} />
                                     <Route path='/login' component={Login} />
                                     <Route exact path='/' component={Home} />
                                     <Route component={NotFound} />

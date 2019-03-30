@@ -9,6 +9,7 @@ const userRepo = require('@server/user/user-repo')
 const healthController = require('./health/health-controller')
 const memberListsController = require('./member-list/member-list-controller')
 const listController = require('./list/list-controller')
+const userController = require('./user/user-controller')
 
 // customize the response for varius errors
 const checkError = (err, req, res, next) => {
@@ -84,6 +85,8 @@ module.exports = (pool, config) => {
     router.get('/member-list', memberListsController.list(config.twitter.consumerKey, config.twitter.consumerSecret))
     router.get('/list/:id(\\d+)', listController.one(config.twitter.consumerKey, config.twitter.consumerSecret))
     router.get('/list/:id(\\d+)/subscribers', listController.subscribers(config.twitter.consumerKey, config.twitter.consumerSecret))
+    router.get('/user/:id(\\d+)', userController.one(config.twitter.consumerKey, config.twitter.consumerSecret))
+    router.get('/user/:id(\\d+)/followers', userController.followers(config.twitter.consumerKey, config.twitter.consumerSecret))
 
     router.use(handle404)
 
