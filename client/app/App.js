@@ -18,7 +18,9 @@ import './style/app.css'
 const Layout = lazy(() => import('./Layout'))
 const Home = lazy(() => import('./Home'))
 const Login = lazy(() => import('./Login'))
+const Logout = lazy(() => import('./Logout'))
 const MemberListsList = lazy(() => import('@client/member-list/MemberListsList'))
+const ListView = lazy(() => import('@client/list/ListView'))
 
 const NotFound = () => {
     return (
@@ -42,8 +44,10 @@ const App = () => {
                         <Suspense fallback={<Loading />}>
                             <Layout>
                                 <Switch>
+                                    <Route path='/logout' component={Logout} />
                                     <Route path='/member-list' component={MemberListsList} />
                                     <Route path='/member-list/p/:cursor' component={MemberListsList} />
+                                    <Route path='/list/:id' component={ListView} />
                                     <Route path='/login' component={Login} />
                                     <Route exact path='/' component={Home} />
                                     <Route component={NotFound} />

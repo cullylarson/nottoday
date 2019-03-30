@@ -4,6 +4,7 @@ import config from '@client/config/reducer'
 import theHistory from '@client/the-history/reducer'
 import nav from '@client/nav/reducer'
 import memberList from '@client/member-list/reducer'
+import list from '@client/list/reducer'
 
 export default combineReducers({
     auth,
@@ -11,4 +12,5 @@ export default combineReducers({
     theHistory,
     nav,
     memberList,
+    list,
 })

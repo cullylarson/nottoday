@@ -4,7 +4,7 @@ const { responseError } = require('@server/lib/response')
 const twitterRepo = require('@server/api/twitter/twitter-repo')
 
 module.exports = {
-    list: (pool, consumerKey, consumerSecret) => (req, res) => {
+    list: (consumerKey, consumerSecret) => (req, res) => {
         const params = req.query
         const numPerPage = 100
         const cursor = get('cursor', -1, params)

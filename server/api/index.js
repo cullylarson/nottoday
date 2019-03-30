@@ -8,6 +8,7 @@ const UnauthorizedError = require('@server/lib/errors/UnauthorizedError')
 const userRepo = require('@server/user/user-repo')
 const healthController = require('./health/health-controller')
 const memberListsController = require('./member-list/member-list-controller')
+const listController = require('./list/list-controller')
 
 // customize the response for varius errors
 const checkError = (err, req, res, next) => {
@@ -80,7 +81,8 @@ module.exports = (pool, config) => {
     router.use(setUser(pool))
     router.use(checkError)
 
-    router.get('/member-list', memberListsController.list(pool, config.twitter.consumerKey, config.twitter.consumerSecret))
+    router.get('/member-list', memberListsController.list(config.twitter.consumerKey, config.twitter.consumerSecret))
+    router.get('/list/:id(\\d+)', listController.one(config.twitter.consumerKey, config.twitter.consumerSecret))
 
     router.use(handle404)
 

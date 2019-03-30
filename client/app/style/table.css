@@ -1,0 +1,123 @@
+@import '@common/variables.css';
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: $mb--standard;
+
+    &.slim {
+        width: $width-slim;
+        max-width: 100%;
+
+        @media(--xs) {
+            width: 100%;
+        }
+    }
+
+    ul {
+        margin-bottom: 0;
+        padding-left: 17px;
+    }
+
+    th {
+        font-weight: $weight-medium;
+
+        a, a:hover {
+            color: $c--body;
+            text-decoration: none;
+        }
+
+        .icon-sort {
+            margin-left: 5px;
+        }
+    }
+
+    th, td {
+        vertical-align: top;
+        padding: 18px 30px;
+
+        .no-lines & {
+            padding-bottom: 0;
+        }
+    }
+
+    td.sub-table {
+        padding: 0;
+
+        tr:last-child {
+            border-bottom: 0;
+
+            td {
+                padding-bottom: 0;
+            }
+        }
+    }
+
+    &.vertical {
+        th, td {
+            padding-left: 0;
+        }
+
+        th {
+            min-width: 150px;
+
+            @media(--xs) {
+                display: block;
+                padding-bottom: 0;
+                min-width: 0;
+            }
+        }
+
+        td {
+            @media(--xs) {
+                display: block;
+                padding-top: 5px;
+            }
+        }
+    }
+
+    tr {
+        text-align: left;
+        border-bottom: 1px solid $c--table-border;
+
+        &.not-enabled {
+            background: #fafafa;
+        }
+
+        .no-lines & {
+            border-bottom: 0;
+        }
+    }
+
+    thead {
+        border-bottom: 2px solid $c--table-border;
+    }
+
+    td.actions {
+        white-space: nowrap;
+
+        a {
+            font-size: $size-large;
+            padding: 5px 8px;
+        }
+    }
+
+    a.action-remove {
+        color: $c--danger;
+        &:hover { color: $c--danger-dark; }
+    }
+
+    a.action-view {
+        color: $c--success;
+        &:hover { color: $c--success-dark; }
+    }
+
+    a.action-edit {
+        color: $c--primary;
+        &:hover { color: $c--primary-dark; }
+    }
+
+    .pagination {
+        margin-top: 20px;
+    }
+}

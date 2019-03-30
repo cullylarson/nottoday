@@ -4,9 +4,8 @@ const { responseError } = require('@server/lib/response')
 const twitterRepo = require('@server/api/twitter/twitter-repo')
 
 module.exports = {
-    one: (pool, consumerKey, consumerSecret) => (req, res) => {
-        const params = req.query
-        const id = get('id', undefined, params)
+    one: (consumerKey, consumerSecret) => (req, res) => {
+        const id = get('id', '', req.params)
 
         twitterRepo.getList({ consumerKey, consumerSecret, token: req.user.token, tokenSecret: req.user.tokenSecret }, id)
             .then((data) => res.json(data))

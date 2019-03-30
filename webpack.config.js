@@ -1,5 +1,3 @@
-// (c) 2018 Cully Larson
-
 const webpack = require('webpack')
 const path = require('path')
 const ManifestPlugin = require('webpack-manifest-plugin')
