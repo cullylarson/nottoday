@@ -72,10 +72,14 @@ const buildTwitterAuth = (tokens, requestUrl, requestMethod, payload) => {
     )(auth)
 }
 
-const getMemberLists = (tokens, userId) => {
+const getMemberLists = (tokens, numPerPage, cursor, userId) => {
     const method = 'get'
     const params = {
-        user_id: userId,
+        ...{
+            user_id: userId,
+            count: numPerPage,
+        },
+        ...(cursor && { cursor }), // empty cursor will produce a bad request
     }
 
     const url = paramUrl('https://api.twitter.com/1.1/lists/memberships.json', params)
@@ -89,10 +93,35 @@ const getMemberLists = (tokens, userId) => {
         .then(responseData)
         .then(({ response, data }) => {
             if(response.ok) {
-                console.log('ok', data) // stub
+                return data
             }
             else {
-                console.log('failed', data) // stub
+                throw new Error('Could not fetch member lists from Twitter.')
+            }
+        })
+}
+
+const getList = (tokens, listId) => {
+    const method = 'get'
+    const params = {
+        list_id: listId,
+    }
+
+    const url = paramUrl('https://api.twitter.com/1.1/lists/show.json', params)
+
+    return fetch(url, {
+        method,
+        headers: {
+            'Authorization': buildTwitterAuth(tokens, url, method, params),
+        },
+    })
+        .then(responseData)
+        .then(({ response, data }) => {
+            if(response.ok) {
+                return data
+            }
+            else {
+                throw new Error('Could not fetch list from Twitter.')
             }
         })
 }
@@ -100,4 +129,5 @@ const getMemberLists = (tokens, userId) => {
 module.exports = {
     signRequest,
     getMemberLists,
+    getList,
 }

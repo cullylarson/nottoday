@@ -1,11 +1,9 @@
-import { getOffset } from '@client/lib/pagination'
 import { paramUrl } from '@client/lib/url'
 import { bearer, responseData } from '@client/lib/request'
 
-export function getMemberLists({ apiUrl, accessToken, page, perPage }) {
+export function getMemberLists({ apiUrl, accessToken, cursor }) {
     const query = {
-        num: perPage,
-        offset: getOffset(page, perPage),
+        cursor,
     }
 
     const url = paramUrl(`${apiUrl}/member-list`, query)
@@ -19,9 +17,13 @@ export function getMemberLists({ apiUrl, accessToken, page, perPage }) {
         .then(responseData)
         .then(({ response, data }) => {
             if(response.ok) {
+                const noResults = (!data.lists || !data.lists.length) && !data.next_cursor_str && !data.previous_cursor_str
+
                 return {
                     lists: data.lists,
-                    numTotal: data.numTotal,
+                    nextCursor: data.next_cursor_str,
+                    previousCursor: data.previous_cursor_str,
+                    noResults,
                 }
             }
             else {

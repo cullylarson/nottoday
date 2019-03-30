@@ -3,11 +3,11 @@ import * as actionTypes from './action-types'
 const initialState = {
     list: {
         lists: [],
-        total: 0,
+        nextCursor: 0,
+        previousCursor: 0,
+        noResults: true,
         doing: false,
         errors: [],
-        page: 1,
-        perPage: 100,
     },
 }
 
@@ -29,8 +29,9 @@ const actionsMap = {
             list: {
                 ...state.list,
                 lists: action.lists,
-                total: action.numTotal,
-                page: action.page,
+                nextCursor: action.nextCursor,
+                previousCursor: action.previousCursor,
+                noResults: action.noResults,
                 doing: false,
                 errors: [],
             },
@@ -43,7 +44,9 @@ const actionsMap = {
             list: {
                 ...state.list,
                 lists: [],
-                total: 0,
+                nextCursor: 0,
+                previousCursor: 0,
+                noResults: 0,
                 doing: false,
                 errors: action.errors,
             },

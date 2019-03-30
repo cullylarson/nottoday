@@ -7,12 +7,13 @@ function getMemberListsRequest() {
     }
 }
 
-function getMemberListsSuccess(lists, numTotal, page) {
+function getMemberListsSuccess(lists, nextCursor, previousCursor, noResults) {
     return {
         type: actionTypes.GET_MEMBER_LISTS_SUCCESS,
         lists,
-        numTotal,
-        page,
+        nextCursor,
+        previousCursor,
+        noResults,
     }
 }
 
@@ -23,7 +24,7 @@ function getMemberListsFailure(errors) {
     }
 }
 
-export function getMemberLists(page) {
+export function getMemberLists(cursor) {
     return (dispatch, getState) => {
         dispatch(getMemberListsRequest())
 
@@ -32,12 +33,15 @@ export function getMemberLists(page) {
         api.getMemberLists({
             apiUrl: state.config.api.baseUrl,
             accessToken: state.auth.accessToken,
-            page,
-            perPage: state.memberList.list.perPage,
+            cursor,
         })
             .then(data => {
-                if(data.errors) dispatch(getMemberListsFailure(data.errors))
-                else dispatch(getMemberListsSuccess(data.lists, data.numTotal, page))
+                if(data.errors) {
+                    dispatch(getMemberListsFailure(data.errors))
+                }
+                else {
+                    dispatch(getMemberListsSuccess(data.lists, data.nextCursor, data.previousCursor, data.noResults))
+                }
             })
             .catch(_ => dispatch(getMemberListsFailure(['Something went wrong and the lists you are a member of could not be fetched. Please try again.'])))
     }

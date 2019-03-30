@@ -1,11 +1,11 @@
 import { getMemberLists } from './actions'
 
-const loadMemberLists = (dispatch, { page }) => {
-    page = page || 1
-    dispatch(getMemberLists(page))
+const loadMemberLists = (dispatch, { cursor }) => {
+    cursor = cursor || ''
+    dispatch(getMemberLists(cursor))
 }
 
 export default {
-    '/member-list/p/:page(\\d+)': loadMemberLists,
+    '/member-list/p/:cursor': loadMemberLists,
     '/member-list': loadMemberLists,
 }

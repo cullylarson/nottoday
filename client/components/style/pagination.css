@@ -1,0 +1,31 @@
+ul.pagination {
+    list-style: none;
+    padding: 0;
+    user-select: none;
+
+    li {
+        display: inline-block;
+
+        a {
+            padding: 5px 10px;
+            margin-right: 5px;
+            border-radius: 2px;
+            transition: all 200ms ease;
+
+            &:hover {
+                text-decoration: none;
+            }
+
+            &.prev.no-prev,
+            &.next.no-next {
+                display: none;
+            }
+
+            &:hover {
+                background-color: #aeaeae;
+                color: white;
+                text-decoration: none;
+            }
+        }
+    }
+}
