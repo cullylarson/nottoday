@@ -3,10 +3,7 @@ import { Link } from 'react-router-dom'
 import Messages from '@client/components/Messages'
 import Pagination from '@client/components/Pagination'
 import Loading from '@client/components/Loading'
-
-const renderFollower = (follower) => {
-    return (<li key={follower.id_str}><Link to={`/user/${follower.id_str}`}>{'@' + follower.screen_name}</Link></li>)
-}
+import UserItemView from './UserItemView'
 
 const renderFollowers = (userId, followers) => {
     if(followers.doing) return <Loading />
@@ -16,9 +13,12 @@ const renderFollowers = (userId, followers) => {
         <Fragment>
             <Messages error={followers.errors} />
 
-            <ul>
-                {followers.data.map(renderFollower)}
-            </ul>
+            <div className='followers'>
+                {followers.data.map(user => (<UserItemView
+                    user={user}
+                    makeLink={x => (<Link to={`/user/${user.id_str}`}>{x}</Link>)}
+                />))}
+            </div>
 
             <Pagination
                 nextCursor={followers.nextCursor}
@@ -37,7 +37,7 @@ export default ({ user, followers }) => {
             <tbody>
                 <tr>
                     <th>Name</th>
-                    <td><a href={`https://twitter.com/${encodeURIComponent(user.screen_name)}`}>{'@' + user.screen_name}</a></td>
+                    <td><UserItemView user={user} makeLink={x => (<a href={`https://twitter.com/${encodeURIComponent(user.screen_name)}`}>{x}</a>)} /></td>
                 </tr>
                 <tr>
                     <th>Followers</th>
